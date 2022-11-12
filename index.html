@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <link rel="icon" href="data:;base64,iVBORwOKGO=" />
+        <style>
+            button {
+                padding: 5%;
+                font-size: 5rem;
+            }
+        </style>
+    </head>
+
+    <body>
+        <form>
+            <button>
+                <span>Show Devices</span>
+            </button>
+        </form>
+        
+
+        
+        <script>
+            //
+            // Checking if the Bluetooth Web API is available on your browser.
+            function isWebBleAvailable() {
+                if (!navigator.bluetooth) {
+                    console.log('Web Bluetooth is not available')
+                    return false
+                }
+                return true
+            }
+        
+            //
+            // Checking for device to pair with.
+            function getAllDevice() {
+                //
+                // Get all Bluetooth Devices.
+                let options = {
+                    acceptAllDevices : true
+                }
+                console.log('Requesting BLE devices info')
+        
+                //
+                // Display the Bluetooth devices to pair.
+                navigator.bluetooth.requestDevice(options).then(devices =>{
+                    console.log('Name: ' + device.name)
+                }).catch(error => {
+                    console.log('Request device error: ' + error)
+                })
+            }
+        
+            // 
+            // Displays all Bluetooth Devices when button is clicked
+            document.querySelector('form').addEventListener('submit', 
+            function(event) {
+                event.stopPropagation()
+                event.preventDefault()
+        
+                if (isWebBleAvailable()) {
+                    getAllDevice()
+                }
+            })
+        </script>
+    </body>
+</html>
